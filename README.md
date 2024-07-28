@@ -1,6 +1,6 @@
 # repo-name
 
-`Project name`
+Battleship project built as part of [The Odin Project curriculum](https://www.theodinproject.com/lessons/node-path-javascript-battleship)
 
 ## Setup
 
@@ -8,13 +8,3 @@
 - Start dev server: `npm start`
 - Build project: `npm run build`
 - Test project: `npm test`
-
-## Notes
-
-- To remove TailwindCSS, navigate to the repository folder and run `removeTailwind.sh` in your terminal:
-
-  ```
-  ./removeTailwind.sh
-  ```
-
-- Allow read and write permissions for GitHub Actions to work!
