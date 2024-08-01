@@ -6,4 +6,7 @@ module.exports = {
   },
   plugins: ["@typescript-eslint"],
   root: true,
+  rules: {
+    "@typescript-eslint/lines-between-class-members": "off",
+  },
 }
