@@ -42,13 +42,13 @@ h6 {
   isolation: isolate;
 }
 html {
-  font-family: system-ui, sans-serif;
-  font-weight: 600;
+  font-family: "Roboto", sans-serif;
+  font-weight: 400;
   color: #b8b8b8;
 }
 body {
   display: grid;
-  grid-template: max-content 1fr / 1fr 550px 1fr;
+  grid-template: max-content 1fr max-content / 1fr 550px 1fr;
   grid-auto-flow: row;
   background-color: #151515;
 }
@@ -59,11 +59,17 @@ header {
 main {
   grid-column: 2 / 3;
   grid-row: 2 / 3;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-evenly;
+  display: grid;
+  grid-template-rows: max-content 1fr minmax(130px, max-content);
+  justify-items: center;
+  row-gap: 1em;
   width: 100%;
+}
+footer {
+  grid-column: 2 / 3;
+  grid-row: 3 / 4;
+  text-align: right;
+  padding-block: 1.5em;
 }
 .heading {
   font-size: 2rem;
@@ -89,11 +95,12 @@ a:hover::after {
   width: max-content;
 }
 .text {
+  padding-block: 0.5em;
 }
 .container {
   display: grid;
   grid-auto-flow: row;
-  grid-template: 40px 1fr / 40px 1fr;
+  grid-template: 40px max-content / 40px 1fr;
 }
 .rows,
 .columns {
@@ -111,45 +118,48 @@ a:hover::after {
 .grid-container {
   grid-column: 2 / 3;
   grid-row: 2 / 3;
-  height: 100%;
+  height: max-content;
   width: 100%;
   display: grid;
   grid-template-columns: repeat(10, var(--square-size));
-  grid-row: repeat(10, var(--square-size));
+  grid-template-rows: repeat(10, var(--square-size));
   border: 1px solid black;
 }
 .square {
   width: var(--square-size);
   height: var(--square-size);
   border: 1px solid black;
-  cursor: pointer;
+  outline: none;
   background-color: #696969;
-}
-.square:hover {
-  background-color: #757575;
+  padding: 0;
+  margin: 0;
 }
 .ships {
   display: flex;
   justify-content: flex-end;
   flex-wrap: wrap;
-  gap: 20px;
+  column-gap: 1em;
   width: 100%;
 }
 .ship {
   height: var(--square-size);
-  background-color: #ccc;
+  background-color: #424242;
   opacity: 80%;
+  border: 1px solid transparent;
 }
-.ship.carrier {
+.ship#carrier {
   width: calc(5 * var(--square-size));
 }
-.ship.battleship {
+.ship#battleship {
   width: calc(4 * var(--square-size));
 }
-.ship.destroyer,
-.ship.submarine {
+.ship#destroyer,
+.ship#submarine {
   width: calc(3 * var(--square-size));
 }
-.ship.patrol-boat {
+.ship#patrol-boat {
   width: calc(2 * var(--square-size));
+}
+.ship-highlight {
+  border: 1px solid white;
 }
