@@ -1,3 +1,6 @@
+:root {
+  --square-size: 50px;
+}
 *,
 *::before,
 *::after {
@@ -37,4 +40,116 @@ h6 {
 #root,
 #__next {
   isolation: isolate;
+}
+html {
+  font-family: system-ui, sans-serif;
+  font-weight: 600;
+  color: #b8b8b8;
+}
+body {
+  display: grid;
+  grid-template: max-content 1fr / 1fr 550px 1fr;
+  grid-auto-flow: row;
+  background-color: #151515;
+}
+header {
+  grid-column: 2 / 3;
+  padding-block: 1em;
+}
+main {
+  grid-column: 2 / 3;
+  grid-row: 2 / 3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  width: 100%;
+}
+.heading {
+  font-size: 2rem;
+  text-align: right;
+}
+.heading span {
+  display: block;
+  font-size: 1.5rem;
+}
+a {
+  position: relative;
+  color: #757575;
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+}
+a:hover::after {
+  position: absolute;
+  content: "( ˶°ㅁ°) !!";
+  text-decoration: none;
+  margin-left: 1em;
+  width: max-content;
+}
+.text {
+}
+.container {
+  display: grid;
+  grid-auto-flow: row;
+  grid-template: 40px 1fr / 40px 1fr;
+}
+.rows,
+.columns {
+  display: grid;
+  justify-items: center;
+  align-items: center;
+}
+.rows {
+  grid-row: 2 / 3;
+}
+.columns {
+  grid-auto-flow: column;
+  grid-column: 2 / 3;
+}
+.grid-container {
+  grid-column: 2 / 3;
+  grid-row: 2 / 3;
+  height: 100%;
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(10, var(--square-size));
+  grid-row: repeat(10, var(--square-size));
+  border: 1px solid black;
+}
+.square {
+  width: var(--square-size);
+  height: var(--square-size);
+  border: 1px solid black;
+  cursor: pointer;
+  background-color: #696969;
+}
+.square:hover {
+  background-color: #757575;
+}
+.ships {
+  display: flex;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: 20px;
+  width: 100%;
+}
+.ship {
+  height: var(--square-size);
+  background-color: #ccc;
+  opacity: 80%;
+}
+.ship.carrier {
+  width: calc(5 * var(--square-size));
+}
+.ship.battleship {
+  width: calc(4 * var(--square-size));
+}
+.ship.destroyer,
+.ship.submarine {
+  width: calc(3 * var(--square-size));
+}
+.ship.patrol-boat {
+  width: calc(2 * var(--square-size));
 }
