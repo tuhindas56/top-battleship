@@ -44,7 +44,7 @@ module.exports = {
     new HTMLWebpackPlugin({
       filename: "index.html",
       template: path.resolve(__dirname, "src/index.html"),
-      favicon: path.resolve(__dirname, "public/favicon.jpeg"),
+      favicon: path.resolve(__dirname, "public/favicon.png"),
       chunks: ["main"],
     }),
     new ESLintPlugin({
