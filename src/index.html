@@ -9,8 +9,37 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet" />
   </head>
   <body>
-    <header></header>
-    <main></main>
-    <footer></footer>
+    <header>
+      <p class="heading">
+        Battleship
+        <span>
+          built by
+          <a href="https://github.com/tuhindas56/" target="_blank" rel="noopener noreferrer">
+            Tuhin Das
+          </a>
+        </span>
+      </p>
+      <p>Battleship favicon by Icons8</p>
+    </header>
+    <main>
+      <div class="ships">
+        <div class="ship" id="patrol-boat" data-length="2" draggable="true"></div>
+        <div class="ship" id="submarine" data-length="3" draggable="true"></div>
+        <div class="ship" id="destroyer" data-length="3" draggable="true"></div>
+        <div class="ship" id="battleship" data-length="4" draggable="true"></div>
+        <div class="ship" id="carrier" data-length="5" draggable="true"></div>
+      </div>
+      <div class="buttons">
+        <button class="button switch-orientation">Switch orientation</button>
+        <button class="button accept" disabled>Accept</button>
+      </div>
+      <div class="container" id="player"></div>
+      <div class="container hidden" id="computer"></div>
+
+      <p class="text">Place your ships</p>
+    </main>
+    <script>
+      document.querySelector(".accept").addEventListener("click", () => console.log("aa"))
+    </script>
   </body>
 </html>
