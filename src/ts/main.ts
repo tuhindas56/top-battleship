@@ -1,6 +1,6 @@
 import "../style.css"
-import setupUI from "./dom/ui"
+import setupGrid from "./dom/ui"
 import setupListeners from "./dom/listeners"
 
-setupUI()
+setupGrid()
 setupListeners()
