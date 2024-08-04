@@ -1,3 +1,5 @@
+import Player from "../player/player"
+
 export const drag = (event: DragEvent) => {
   const target = event.target as HTMLDivElement
   event.dataTransfer?.setData("text", target.id)
@@ -20,6 +22,12 @@ export const drop = (event: DragEvent) => {
     const ship = document.querySelector(`#${data}`) as HTMLDivElement
     ship.classList.add("placed")
     target.appendChild(ship)
+
+    const shipPlacementEvent = new CustomEvent("shipPlaced", {
+      bubbles: true,
+      detail: target,
+    })
+    ship.dispatchEvent(shipPlacementEvent)
   }
 }
 
@@ -41,4 +49,31 @@ export const rotateShips = (orientation: "horizontal" | "vertical") => {
   ships.forEach((ship) => ship.classList.toggle("vertical"))
 
   return orientation === "horizontal" ? "vertical" : "horizontal"
+}
+
+export const placeShips = (
+  event: CustomEvent,
+  player: Player,
+  currentOrientation: "horizontal" | "vertical",
+) => {
+  type Ships = "carrier" | "battleship" | "destroyer" | "submarine" | "patrolBoat"
+  const shipsContainer = document.querySelector(".ships") as HTMLDivElement
+  const target = event.target as HTMLDivElement
+  const cell = event.detail
+  const shipType: Ships = target.id as Ships
+  const [row, column] = [+cell.dataset.row, +cell.dataset.column]
+
+  try {
+    player.gameBoard.placeShip(player.ships[shipType], {
+      row,
+      column,
+      vertical: currentOrientation !== "horizontal",
+    })
+  } catch (error) {
+    const temp = target
+    target.remove()
+    cell.classList.remove("hovered")
+    temp.className = currentOrientation !== "horizontal" ? "ship vertical" : "ship"
+    shipsContainer.appendChild(temp)
+  }
 }

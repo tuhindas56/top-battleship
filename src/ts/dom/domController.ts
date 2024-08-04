@@ -1,8 +1,10 @@
+import Player from "../player/player"
 import {
   allowDrop,
   drag,
   drop,
   highlightShip,
+  placeShips,
   removeShipHighlight,
   rotateShips,
 } from "./domControllerUtils"
@@ -10,7 +12,11 @@ import { setupGrid } from "./ui"
 
 const computerContainer = document.querySelector(".container#computer") as HTMLDivElement
 const playerContainer = document.querySelector(".container#player") as HTMLDivElement
+
 let currentOrientation: "horizontal" | "vertical" = "horizontal"
+const computer = new Player()
+const player = new Player()
+let currentTurn = "player"
 
 const setupDragAndDrop = () => {
   const gridCells = document.querySelectorAll(".square") as NodeListOf<HTMLButtonElement>
@@ -41,6 +47,13 @@ const setupOrientationSwitching = () => {
   })
 }
 
+const setupShipPlacement = (player1: Player, player2: Player) => {
+  playerContainer.addEventListener("shipPlaced", ((event: CustomEvent) => {
+    placeShips(event, currentTurn === "player" ? player1 : player2, currentOrientation)
+  }) as EventListener)
+}
+
 setupGrid(playerContainer)
 setupDragAndDrop()
 setupOrientationSwitching()
+setupShipPlacement(player, computer)
