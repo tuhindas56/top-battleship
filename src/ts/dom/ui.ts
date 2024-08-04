@@ -1,7 +1,6 @@
 const main = document.querySelector("main") as HTMLElement
-const parentContainer = document.querySelector(".container") as HTMLDivElement
 
-const setupLabels = () => {
+const setupLabels = (container: HTMLDivElement) => {
   const rows = document.createElement("div") as HTMLDivElement
   const columns = document.createElement("div") as HTMLDivElement
   const alphabet = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"]
@@ -20,12 +19,12 @@ const setupLabels = () => {
     rows.appendChild(row)
   })
 
-  parentContainer.appendChild(rows)
-  parentContainer.appendChild(columns)
-  main.appendChild(parentContainer)
+  container.appendChild(rows)
+  container.appendChild(columns)
+  main.appendChild(container)
 }
 
-const createGrid = () => {
+const createGrid = (container: HTMLDivElement) => {
   const gridContainer = document.createElement("div") as HTMLDivElement
 
   gridContainer.className = "grid-container"
@@ -40,12 +39,12 @@ const createGrid = () => {
     }
   }
 
-  parentContainer.appendChild(gridContainer)
+  container.appendChild(gridContainer)
 }
 
-const setupGrid = () => {
-  setupLabels()
-  createGrid()
+export const setupGrid = (...containers: HTMLDivElement[]) => {
+  containers.forEach((container) => {
+    setupLabels(container)
+    createGrid(container)
+  })
 }
-
-export default setupGrid
