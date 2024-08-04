@@ -3,21 +3,20 @@ const main = document.querySelector("main") as HTMLElement
 const setupLabels = (container: HTMLDivElement) => {
   const rows = document.createElement("div") as HTMLDivElement
   const columns = document.createElement("div") as HTMLDivElement
-  const alphabet = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"]
 
   rows.className = "rows"
   columns.className = "columns"
 
-  alphabet.forEach((letter, index) => {
+  for (let i = 0; i < 10; i += 1) {
     const column = document.createElement("span") as HTMLSpanElement
     const row = document.createElement("span") as HTMLSpanElement
 
-    column.textContent = `${index}`
-    row.textContent = letter
+    column.textContent = `${i}`
+    row.textContent = `${i}`
 
     columns.appendChild(column)
     rows.appendChild(row)
-  })
+  }
 
   container.appendChild(rows)
   container.appendChild(columns)
