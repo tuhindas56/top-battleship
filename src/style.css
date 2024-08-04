@@ -170,7 +170,7 @@ header p:last-child {
 .ship#submarine {
   width: calc(3 * var(--square-size));
 }
-.ship#patrol-boat {
+.ship#patrolBoat {
   width: calc(2 * var(--square-size));
 }
 .ship-highlight {
@@ -189,7 +189,7 @@ header p:last-child {
   width: var(--square-size);
   height: calc(3 * var(--square-size));
 }
-.ship#patrol-boat.vertical {
+.ship#patrolBoat.vertical {
   width: var(--square-size);
   height: calc(2 * var(--square-size));
 }
