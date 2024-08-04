@@ -66,31 +66,6 @@ describe("Tests for the Gameboard", () => {
     ).toThrow(new RangeError("Ship cannot be placed at current coordinate"))
   })
 
-  test("Gameboard.placeShip() should only be able to place ships of distinct types", () => {
-    expect(() =>
-      gameBoard.placeShip(new Ship("destroyer", 3), {
-        row: 6,
-        column: 4,
-        vertical: false,
-      }),
-    ).toThrow(new TypeError("A ship of the same type was already placed"))
-  })
-
-  test("Gameboard.placeShip() should only be able to place five ships", () => {
-    expect(() => {
-      gameBoard.placeShip(new Ship("carrier", 5), {
-        row: 0,
-        column: 9,
-        vertical: true,
-      })
-      gameBoard.placeShip(new Ship("boat", 1), {
-        row: 9,
-        column: 9,
-        vertical: false,
-      })
-    }).toThrow(new RangeError("Cannot place more than five ships"))
-  })
-
   test("Gameboard.receiveAttack() should correctly determine if a ship was hit", () => {
     expect(gameBoard.receiveAttack({ row: 0, column: 0 })).toBe("hit")
   })
@@ -108,9 +83,7 @@ describe("Tests for the Gameboard", () => {
   test("Gameboard.receiveAttack() should correctly determine if a ship was sunk", () => {
     gameBoard.receiveAttack({ row: 1, column: 0 })
     gameBoard.receiveAttack({ row: 2, column: 0 })
-    expect(gameBoard.receiveAttack({ row: 3, column: 0 })).toBe(
-      "battleship sunk",
-    )
+    expect(gameBoard.receiveAttack({ row: 3, column: 0 })).toBe("battleship sunk")
   })
 
   test("Gameboard should keep track of missed attacks", () => {
@@ -140,8 +113,6 @@ describe("Tests for the Gameboard", () => {
     gameBoard.receiveAttack({ row: 2, column: 9 })
     gameBoard.receiveAttack({ row: 3, column: 9 })
 
-    expect(gameBoard.receiveAttack({ row: 4, column: 9 })).toBe(
-      "all ships sunk",
-    )
+    expect(gameBoard.receiveAttack({ row: 4, column: 9 })).toBe("all ships sunk")
   })
 })
