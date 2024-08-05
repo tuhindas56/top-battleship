@@ -6,7 +6,6 @@ export default class Gameboard {
   gameBoard: Ship[][] | null[][] = []
   attackedCoordinates: Set<string> = new Set()
   missedAttacks: Coordinate[] = []
-  #numberOfShips: number = 0
   #shipsPlaced: Set<Ship> = new Set()
 
   constructor() {
@@ -44,7 +43,6 @@ export default class Gameboard {
       }
     }
 
-    this.#numberOfShips += 1 // Increment number of ships placed
     this.#shipsPlaced.add(ship) // Track type of ship placed
 
     return "placed"
