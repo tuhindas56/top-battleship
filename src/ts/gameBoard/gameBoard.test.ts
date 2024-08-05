@@ -57,13 +57,13 @@ describe("Tests for the Gameboard", () => {
   })
 
   test("Gameboard.placeShip() should throw error if ship size reaches out of bounds", () => {
-    expect(() =>
+    expect(
       gameBoard.placeShip(new Ship("carrier", 5), {
         row: 2,
         column: 6,
         vertical: false,
       }),
-    ).toThrow(new RangeError("Ship cannot be placed at current coordinate"))
+    ).toBe("Ship cannot be placed at current coordinate")
   })
 
   test("Gameboard.receiveAttack() should correctly determine if a ship was hit", () => {
@@ -75,7 +75,7 @@ describe("Tests for the Gameboard", () => {
   })
 
   test("Gameboard.receiveAttack() should throw an error if previously attacked coordinate is attacked", () => {
-    expect(() => gameBoard.receiveAttack({ row: 0, column: 0 })).toThrow(
+    expect(gameBoard.receiveAttack({ row: 0, column: 0 })).toBe(
       "Cannot attack same coordinate more than once",
     )
   })

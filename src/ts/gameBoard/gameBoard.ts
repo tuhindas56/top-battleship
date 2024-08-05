@@ -25,16 +25,14 @@ export default class Gameboard {
     if (this.#hasShip(ship)) this.#removeShip(ship, vertical)
 
     const range = vertical ? row + ship.size : column + ship.size
-    if (range > 10) {
-      throw new RangeError("Ship cannot be placed at current coordinate") // If ship placement exceeds bounds, throw an error
-    }
+    if (range > 10) return "Ship cannot be placed at current coordinate" // If ship placement exceeds bounds, exit
 
     for (let i = 0; i < ship.size; i += 1) {
       if (
         (vertical && this.gameBoard[row + i][column]) ||
         (!vertical && this.gameBoard[row][column + i])
       ) {
-        throw new Error("Ship placement range is not empty") // If a cell in the range of cells is occupied, throw an error
+        return "Ship placement range is not empty" // If a cell in the range of cells is occupied, exit
       }
     }
 
@@ -72,7 +70,7 @@ export default class Gameboard {
 
   receiveAttack({ row, column }: Coordinate) {
     if (this.attackedCoordinates.has(`{ ${row}, ${column}`)) {
-      throw new Error("Cannot attack same coordinate more than once")
+      return "Cannot attack same coordinate more than once"
     }
 
     const ship = this.gameBoard[row][column]
