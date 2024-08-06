@@ -1,5 +1,13 @@
 :root {
   --square-size: 50px;
+  --square-bg: #696969;
+  --square-hover: #818080;
+  --button-bg: #262626;
+  --button-hover: #303030;
+  --button-active: #383838;
+  --font-color-light: #b8b8b8;
+  --font-color-dark: #757575;
+  --ship-bg: #424242;
 }
 *,
 *::before,
@@ -44,7 +52,7 @@ h6 {
 html {
   font-family: "Roboto", sans-serif;
   font-weight: 400;
-  color: #b8b8b8;
+  color: var(--font-color-light);
 }
 body {
   display: grid;
@@ -73,7 +81,7 @@ main {
 }
 a {
   position: relative;
-  color: #757575;
+  color: var(--font-color-dark);
   text-decoration: none;
   text-wrap: nowrap;
 }
@@ -89,7 +97,7 @@ a:hover::after {
 }
 header p:last-child {
   font-size: 1rem;
-  color: #757575;
+  color: var(--font-color-dark);
   padding-top: 0.5em;
 }
 .container {
@@ -135,12 +143,19 @@ header p:last-child {
   height: var(--square-size);
   border: 1px solid black;
   outline: none;
-  background-color: #696969;
+  background-color: var(--square-bg);
   padding: 0;
   margin: 0;
 }
-.square.hovered {
-  background-color: #818080;
+.square.dragging,
+#computer .square.hovered:hover {
+  background-color: var(--square-hover);
+}
+.square.hit {
+  background-color: rgba(220, 20, 60, 0.479);
+}
+.square.miss {
+  background-color: var(--button-active);
 }
 .ships {
   grid-row: 1 / 2;
@@ -156,7 +171,7 @@ header p:last-child {
 }
 .ship {
   height: var(--square-size);
-  background-color: #424242;
+  background-color: var(--ship-bg);
   opacity: 80%;
   border: 1px solid transparent;
 }
@@ -199,8 +214,8 @@ header p:last-child {
 }
 .button {
   height: 40px;
-  background-color: #262626;
-  color: #b8b8b8;
+  background-color: var(--button-bg);
+  color: var(--font-color-light);
   border: 0;
   border-radius: 6px;
   outline: 0;
@@ -209,20 +224,29 @@ header p:last-child {
   transition: 0.05s ease-in-out;
 }
 .button:hover {
-  background-color: #303030;
+  background-color: var(--button-hover);
   cursor: pointer;
 }
 .button:active {
-  background-color: #383838;
+  background-color: var(--button-active);
 }
 .button:disabled {
-  background-color: #262626;
+  background-color: var(--button-bg);
   cursor: not-allowed;
 }
 .text {
   grid-column: 1 / 2;
   grid-row: 2 / 3;
 }
+.disableClick {
+  pointer-events: none;
+}
+.disableClick .square:hover {
+  background-color: var(--square-bg);
+}
 .hidden {
   display: none;
+}
+.lowOpacity {
+  opacity: 60%;
 }
