@@ -8,5 +8,6 @@ module.exports = {
   root: true,
   rules: {
     "@typescript-eslint/lines-between-class-members": "off",
+    "@typescript-eslint/no-useless-constructor": "off",
   },
 }
