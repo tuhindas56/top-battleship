@@ -67,28 +67,49 @@ describe("Tests for the Gameboard", () => {
   })
 
   test("Gameboard.receiveAttack() should correctly determine if a ship was hit", () => {
-    expect(gameBoard.receiveAttack({ row: 0, column: 0 })).toBe("hit")
+    expect(gameBoard.receiveAttack({ row: 0, column: 0 })).toEqual({
+      allShipsSunk: false,
+      attackResult: "hit",
+      shipSunk: false,
+      shipType: "battleship",
+    })
   })
 
   test("Gameboard.receiveAttack() should correctly determine if a hit was missed", () => {
-    expect(gameBoard.receiveAttack({ row: 9, column: 0 })).toBe("miss")
+    expect(gameBoard.receiveAttack({ row: 9, column: 9 })).toEqual({
+      allShipsSunk: false,
+      attackResult: "miss",
+      shipSunk: false,
+      shipType: "unknown",
+    })
   })
 
   test("Gameboard.receiveAttack() should throw an error if previously attacked coordinate is attacked", () => {
-    expect(gameBoard.receiveAttack({ row: 0, column: 0 })).toBe("failed")
+    expect(gameBoard.receiveAttack({ row: 0, column: 0 })).toEqual({
+      shipType: "unknown",
+      attackResult: "failed",
+      shipSunk: false,
+      allShipsSunk: false,
+    })
   })
 
   test("Gameboard.receiveAttack() should correctly determine if a ship was sunk", () => {
+    gameBoard.receiveAttack({ row: 0, column: 0 })
     gameBoard.receiveAttack({ row: 1, column: 0 })
     gameBoard.receiveAttack({ row: 2, column: 0 })
-    expect(gameBoard.receiveAttack({ row: 3, column: 0 })).toBe("battleship sunk")
+    expect(gameBoard.receiveAttack({ row: 3, column: 0 })).toEqual({
+      shipType: "battleship",
+      attackResult: "hit",
+      shipSunk: true,
+      allShipsSunk: false,
+    })
   })
 
   test("Gameboard should keep track of missed attacks", () => {
     expect(gameBoard.missedAttacks).toEqual([
       {
         row: 9,
-        column: 0,
+        column: 9,
       },
     ])
   })
@@ -105,12 +126,22 @@ describe("Tests for the Gameboard", () => {
     // Sink  patrolBoat
     gameBoard.receiveAttack({ row: 0, column: 4 })
     gameBoard.receiveAttack({ row: 1, column: 4 })
-    // Sink carrier
-    gameBoard.receiveAttack({ row: 0, column: 9 })
-    gameBoard.receiveAttack({ row: 1, column: 9 })
-    gameBoard.receiveAttack({ row: 2, column: 9 })
-    gameBoard.receiveAttack({ row: 3, column: 9 })
+    // Place and Sink carrier
+    gameBoard.placeShip(new Ship("carrier", 5), {
+      row: 9,
+      column: 0,
+      vertical: false,
+    })
+    gameBoard.receiveAttack({ row: 9, column: 0 })
+    gameBoard.receiveAttack({ row: 9, column: 1 })
+    gameBoard.receiveAttack({ row: 9, column: 2 })
+    gameBoard.receiveAttack({ row: 9, column: 3 })
 
-    expect(gameBoard.receiveAttack({ row: 4, column: 9 })).toBe("all ships sunk")
+    expect(gameBoard.receiveAttack({ row: 9, column: 4 })).toEqual({
+      shipType: "carrier",
+      attackResult: "hit",
+      shipSunk: true,
+      allShipsSunk: true,
+    })
   })
 })
