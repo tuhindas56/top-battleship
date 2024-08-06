@@ -34,7 +34,10 @@ const setupDragAndDrop = () => {
       cell.classList.add("dragging")
     })
     cell.addEventListener("dragleave", () => cell.classList.remove("dragging"))
-    cell.addEventListener("drop", drop)
+    cell.addEventListener("drop", (event: DragEvent) => {
+      drop(event)
+      cell.classList.remove("dragging")
+    })
   })
 }
 
