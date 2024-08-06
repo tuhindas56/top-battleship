@@ -75,9 +75,7 @@ describe("Tests for the Gameboard", () => {
   })
 
   test("Gameboard.receiveAttack() should throw an error if previously attacked coordinate is attacked", () => {
-    expect(gameBoard.receiveAttack({ row: 0, column: 0 })).toBe(
-      "Cannot attack same coordinate more than once",
-    )
+    expect(gameBoard.receiveAttack({ row: 0, column: 0 })).toBe("failed")
   })
 
   test("Gameboard.receiveAttack() should correctly determine if a ship was sunk", () => {

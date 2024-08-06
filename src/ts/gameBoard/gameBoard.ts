@@ -67,23 +67,33 @@ export default class Gameboard {
   }
 
   receiveAttack({ row, column }: Coordinate) {
-    if (this.attackedCoordinates.has(`{ ${row}, ${column}`)) {
-      return "Cannot attack same coordinate more than once"
+    const outcome = {
+      shipType: "unknown",
+      attackResult: "unknown",
+      shipSunk: false,
+      allShipsSunk: false,
     }
 
-    const ship = this.gameBoard[row][column]
-    let outcome: string
+    if (this.attackedCoordinates.has(`{ ${row}, ${column}`)) {
+      outcome.attackResult = "failed"
+      return outcome
+    }
+
+    const ship = this.gameBoard[+row][+column]
 
     if (ship) {
       ship.hit()
-      outcome = ship.isSunk() ? `${ship.type} sunk` : "hit"
+      outcome.shipType = ship.type
+      outcome.attackResult = "hit"
+      outcome.shipSunk = ship.isSunk()
+      outcome.allShipsSunk = this.#checkIfAllShipsAreSunk()
     } else {
       this.missedAttacks.push({ row, column })
-      outcome = "miss"
+      outcome.attackResult = "miss"
     }
 
     this.attackedCoordinates.add(`{ ${row}, ${column}`) // Keep track of attacked coordinates
 
-    return this.#checkIfAllShipsAreSunk() ? "all ships sunk" : outcome
+    return outcome
   }
 }
